@@ -1,25 +1,40 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import uuid from 'uuid'
+
+import FunctionalCompExample from './components/FunctionalCompExample'
+import RegularComponentExample from './components/RegularComponentExample'
+
+import {
+  ArrowDiv,
+  FlexWrapper,
+  FlexLineBreak
+} from './common'
 
 class App extends Component {
+  state = {
+    example : "thing",
+    manyExamples: [],
+    debug: false,
+  }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        {/* Component with props set individually */}
+        <RegularComponentExample 
+          headerText={'Hello World'} 
+          debug={this.state.debug} 
+        />
+        <FlexWrapper centered>
+          {/* Components with props set through spread */}
+          {this.state.manyExamples.map(
+            example => 
+              <FunctionalCompExample 
+                {...example} 
+              />
+          )}
+          <FlexLineBreak />
+          <ArrowDiv down height={40} width={40}/> 
+        </FlexWrapper>
       </div>
     );
   }
